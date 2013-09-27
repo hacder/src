@@ -1,0 +1,66 @@
+@charset "utf-8";
+/* CSS Document */
+body { margin:0; padding:0; font-size:13px; font-family:Verdana; line-height:1.5; background:#fafcfd url(../img/body_bg.jpg) repeat-x;}
+ul,dl,dd,h1,h2,h3,h4,h5,h6,form,p { padding:0; margin:0;}
+ul { list-style:none;}
+img { border:0px;}
+a { color:#05a; text-decoration:none;}
+a:hover { color:#f00;}
+.clearfloat {clear:both;height:0;font-size: 1px;line-height: 0px;}
+
+/*body*/
+#container { width:730px; margin:10px auto; background:#eff7fa;border:1px solid #87c3dc;}
+
+/*header*/
+#header { height:81px; background:url(../img/header_bg.jpg) repeat-x; margin-bottom:18px;}
+#header img{ display:block; float:left; margin:0 10px;}
+#header p{ display:block; float:right; padding:45px 10px 0 0; color:#fff; line-height:35px; }
+
+ 
+
+/*main*/
+#main {width:700px; margin:0 auto 8px auto;}
+.word{ height:420px; background:#fff; overflow-x:hidden; overflow-y:scroll;line-height:30px; padding:10px 10px 10px 15px;border:1px solid #8dbfe3; color:#484848;}
+.check{border:1px solid #8dbfe3; background:#f4f9fc;}
+.biaoti{ margin:8px auto; display:block; text-align:center; width:280px; height:100px; line-height:60px;}
+.title1{ color:#3493bc; font-size:35px; font-weight:bold; margin:0 5px; }
+.text1{ background:url(../img/all.gif) 0 -30px; width:200px; height:32px; display:block; line-height:32px; text-align:center; float:right;} 
+.text2{ background:url(../img/all.gif) -160px -70px; width:108px; height:32px; display:block; line-height:32px; text-align:center; float:right;} 
+.text3{ background:url(../img/all.gif) 0 -70px; width:156px; height:32px; display:block; line-height:32px; text-align:center; float:right;} 
+.setup { background:url(../img/step_bg.jpg) repeat-x; border-bottom:1px solid #8dbfe3; height:54px; display:block; margin-bottom:12px;
+padding:0 30px;}
+.setup ul li{ float:left;  display:block; width:144px; height:54px; margin-left:15px;}
+.step{background:url(../img/step.jpg) no-repeat;color:#3493bc;}
+.selstep{background:url(../img/selstep.jpg) no-repeat; color:#666666;}
+.overstep{background:url(../img/overstep.jpg) no-repeat;color:#3493bc;}
+.overselstep{background:url(../img/overselstep.jpg) no-repeat; color:#666666;}
+.setup ul li p{  line-height:40px; text-align:center; text-indent:25px;}
+.bge1{ border-collapse: collapse; color:#626262; width:680px; margin:0 auto; line-height:28px;text-indent:15px;}
+.tit{ background:url(../img/tit_bg.jpg) repeat-x; border:#bee5f4 1px solid; height:28px; line-height:28px;  color:#3493bc; font-weight:lighter; text-indent:20px;}
+.tit2{ background:url(../img/tit_bg.jpg) repeat-x; border:#bee5f4 1px solid; height:28px; line-height:28px;  color:#3493bc; font-weight:lighter; text-indent:20px; font-weight:bold; font-size:14px;}
+.dress{ width:350px; }
+.data{height:350px;border:1px solid #8dbfe3; background:#f4f9fc;}
+.datacon{width:680px; margin:0 auto;}
+.datacon ul{ margin-top:20px;}
+.datacon ul li{ height:30px; line-height:30px; display:block; float:left; margin-bottom:15px;}
+.ti_1{ width:120px; text-align:right; height:30px; line-height:30px;float:left; font-weight:bold; color:#4b4b4b; margin-right:20px; font-size:15px;}
+.ti_2{ width:290px; text-align:left; height:30px; line-height:30px; float:left; color:#626262; margin-left:30px; font-size:14px;}
+.tx_box{ width:212px; height:20px;  text-indent:5px;float:left; }
+.complete_box{height:420px;border:1px solid #8dbfe3; background:#f4f9fc;}
+.complete{ width:680px; margin:0 auto;}
+.complete p{ line-height:28px; padding:10px 15px; color:#565656;}
+.complete a{ text-decoration:underline; font-size:14px; color:#3493bc;}
+.complete a:hover{ text-decoration:none; color:#dc2b08;}
+.title2{ background:url(../img/all.gif) 0 -110px; width:168px; height:27px; display:block; line-height:27px; text-indent:20px; color:#dc2b08; font-size:14px;}
+.text4{color:#dc2b08; font-size:14px; font-weight:bold;}
+
+.check_up_img{display:block; width:16px; padding-top:4px; float:left;}
+.check_up_text{display:block; float:left; height:24px; line-height:24px; float:left;}
+
+/*button*/
+.button{ height:50px; display:block; text-align:right; padding:15px 40px 0 10px;}
+.btnbox{ background:url(../img/all.gif) 0 0; width:90px; height:27px; border:none; line-height:27px; color:#fff; margin-left:15px;cursor:pointer;}
+
+/*footer*/
+#footer { height:60px; background:url(../img/footer_bg.jpg) repeat-x;}
+#footer p{ color:#626262;width:710px; border-top:1px solid #8dbfe3; display:block; margin:0 auto 8px auto; line-height:40px; text-align:center;}

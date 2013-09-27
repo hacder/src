@@ -1,0 +1,94 @@
+<?php
+
+class filecenter extends osa_controller{
+
+	private $model = null;
+	private $page = null;
+
+	public function __construct(){
+	
+		parent::__construct();
+		$this->model = $this->loadmodel('mfilecenter');
+		$this->page = $this->loadmodel('mpage');
+		
+		if(!isset($_SESSION)){
+			session_start();
+		}
+		$_SESSION['header'] = "filecenter";
+	}
+	
+	
+	public function filelist(){
+	
+		if(!isset($_SESSION['username'])){
+			header("Location: index.php?c=login&a=index", TRUE, 302);
+		}
+		
+		if(isset($_GET['pagenum'])){
+			$_SESSION['pagenum'] = $_GET['pagenum'];
+		}
+		$search = '';
+		if(isset($_GET['search'])){
+			$search = $_GET['search'];
+		}
+		$perpage = isset($_SESSION['pagenum'])?$_SESSION['pagenum']:10;
+		$offset = isset($_GET['offset'])?$_GET['offset']:0;
+		$data['fileinfo'] = $this->model->files_select_page($search ,$perpage ,$offset);
+		$num = $this->model->files_select_num($search);
+		$url = 'index.php?c=filecenter&a=filelist';
+		if(!empty($search)){
+			$pageurl =$url."&search=".$search;
+		}else{
+			$pageurl = $url ;
+		}
+		$data['search'] = $search ;
+		$data['url'] = $url;
+		$data['ajaxurl'] = 'index.php?c=filecenter&a=files_ajax';
+		$data['page'] = $this->page->create_links($pageurl,$num ,$perpage ,$offset);	
+		$this->loadview('filecenter/filelist',$data);
+	}
+	
+	public function files_ajax(){
+	
+		if(isset($_GET['pagenum'])){
+			$_SESSION['pagenum'] = $_GET['pagenum'];
+		}
+		$search = '';
+		if(isset($_GET['search'])){
+			$search = $_GET['search'];
+		}
+		$perpage = isset($_SESSION['pagenum'])?$_SESSION['pagenum']:10;
+		$offset = isset($_GET['offset'])?$_GET['offset']:0;
+		$data['fileinfo'] = $this->model->files_select_page($search ,$perpage ,$offset);
+		$num = $this->model->files_select_num($search);
+		$url = 'index.php?c=filecenter&a=filelist';
+		if(!empty($search)){
+			$pageurl =$url."&search=".$search;
+		}else{
+			$pageurl = $url ;
+		}
+		$data['search'] = $search ;
+		$data['url'] = $url;
+		$data['ajaxurl'] = 'index.php?c=filecenter&a=files_ajax';
+		$data['page'] = $this->page->create_links($pageurl,$num ,$perpage ,$offset);	
+		$this->loadview('filecenter/file_ajax',$data);
+	}
+	
+	
+	public function file_del_batch(){
+		
+		$arr = $_POST['idarr'];
+		foreach ($arr as $id){
+		
+			$this->model->files_delete($id);
+		}
+	}
+	
+	
+	public function file_del(){
+		
+		$id = $_POST['id'];
+		$this->model->files_delete($id);
+		
+	}
+}

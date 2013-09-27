@@ -1,0 +1,62 @@
+	    <div class="content">
+	      <h3>目录、文件权限检查</h3>
+	      
+	      
+	      <table class="bge1">
+				<tbody>
+                      <tr class="tit">
+                        <td>文件目录</td>
+                        <td>所需状态</td>
+                        <td>当前状态</td>
+                      </tr>
+                      <tr>  
+                        <td class="dress">/osa/ctrlphp/</td>
+                        <td><img src="img/right2.gif" />可写</td>
+                        <td><span class="check_up_img"><img src="osa_template/images/<?php echo $ctrlphp_dir; ?>.gif" /></span><span class="check_up_text"><?php if($ctrlphp_dir==1){ echo "可写";}else{ echo "<font color='red'>不可写</font>";} ?></span></td>
+                      </tr>
+                      <tr>  
+                        <td class="dress">/osa/ctrlphp/etc/</td>
+                        <td><img src="img/right2.gif" />可写</td>
+                        <td><span class="check_up_img"><img src="osa_template/images/<?php echo $ctrlphp_etc; ?>.gif" /></span><span class="check_up_text"><?php if($ctrlphp_etc==1){ echo "可写";}else{ echo "<font color='red'>不可写</font>";} ?></td>
+                      </tr>
+                      <tr>  
+                        <td class="dress">/osa/ctrlpy/etc/config.py</td>
+                        <td><img src="img/right2.gif" />可写</td>
+                        <td><span class="check_up_img"><img src="osa_template/images/<?php echo $ctrlpy_config; ?>.gif" /></span><span class="check_up_text"><?php if($ctrlpy_config==1){ echo "可写";}else{ echo "<font color='red'>不可写</font>";} ?></span></td>
+                      </tr>                      
+                      <tr>  
+                        <td class="dress">/osa/ctrlphp/etc/session/</td>
+                        <td><img src="img/right2.gif" />可写</td>
+                        <td><span class="check_up_img"><img src="osa_template/images/<?php echo $phpsession_path; ?>.gif" /></span><span class="check_up_text"><?php if($phpsession_path==1){ echo "可写";}else{ echo "<font color='red'>不可写</font>";} ?></span></td>
+                      </tr>
+                 </tbody>
+			 </table> 
+		  <div class="check_up">
+		      <ul style="margin-right:150px;">
+			      <li class="li_name">目录文件</li>
+				  <li>/osa/ctrlphp/</li>
+				  <li>/osa/ctrlphp/etc/</li>
+				  <li>/osa/ctrlpy/etc/config.py</li>  
+				  <li>/osa/unctrlpy/etc/config.py</li>			  
+				  <li>/osa/ctrlphp/etc/session/</li>
+			  </ul>
+		      <ul>
+			      <li class="li_name">所需状态</li>
+				  <li><span class="check_up_img"><img src="osa_template/images/normal.gif" /></span><span class="check_up_text">可写</span></li>
+				  <li><span class="check_up_img"><img src="osa_template/images/normal.gif" /></span><span class="check_up_text">可写</span></li>
+				  <li><span class="check_up_img"><img src="osa_template/images/normal.gif" /></span><span class="check_up_text">可写</span></li>  
+				  <li><span class="check_up_img"><img src="osa_template/images/normal.gif" /></span><span class="check_up_text">可写</span></li>		  
+				  <li><span class="check_up_img"><img src="osa_template/images/normal.gif" /></span><span class="check_up_text">可写</span></li>
+			  </ul>
+		      <ul style="margin-right:0;">
+			      <li class="li_name">当前状态</li>
+				  <li><span class="check_up_img"><img src="osa_template/images/<?php echo $ctrlphp_dir; ?>.jpg" /></span><span class="check_up_text"><?php if($ctrlphp_dir==1){ echo "可写";}else{ echo "<font color='red'>不可写</font>";} ?></span></li>
+				  <li><span class="check_up_img"><img src="osa_template/images/<?php echo $ctrlphp_etc; ?>.jpg" /></span><span class="check_up_text"><?php if($ctrlphp_etc==1){ echo "可写";}else{ echo "<font color='red'>不可写</font>";} ?></span></li>
+				  <li><span class="check_up_img"><img src="osa_template/images/<?php echo $ctrlpy_config; ?>.jpg" /></span><span class="check_up_text"><?php if($ctrlpy_config==1){ echo "可写";}else{ echo "<font color='red'>不可写</font>";} ?></span></li> 
+				  <!-- <li><span class="check_up_img"><img src="osa_template/images/<?php echo $unctrlpy_config; ?>.jpg" /></span><span class="check_up_text"><?php if($unctrlpy_config==1){ echo "可写";}else{ echo "<font color='red'>不可写</font>";} ?></span></li> -->
+				  <li><span class="check_up_img"><img src="osa_template/images/<?php echo $phpsession_path; ?>.jpg" /></span><span class="check_up_text"><?php if($phpsession_path==1){ echo "可写";}else{ echo "<font color='red'>不可写</font>";} ?></span></li>
+			  </ul>
+		  </div>
+		</div><!--目录、文件权限检查结束-->
+		<div class="clear"></div>
+
