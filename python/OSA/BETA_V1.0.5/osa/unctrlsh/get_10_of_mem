@@ -1,0 +1,14 @@
+#!/bin/bash
+
+PWD=$(dirname $(readlink /proc/$$/fd/255))
+TMP="'"
+ps -eo pid,%mem,command  | grep -v PID | sort -nr -k 2 | head -n 10 > $PWD/etc/mem_process
+
+PID=($(awk '{print $1}' $PWD/etc/mem_process))
+used=($(awk '{print $2}' $PWD/etc/mem_process))
+TOPINFO=$(top -b -n 1)
+for (( i=0;i<${#PID[@]};i++ ))
+do
+	pro_name=$( echo "$TOPINFO" | awk '$1=="'${PID[$i]}'"{print $NF}')
+	echo -e '##get_10_of_mem_'$i'##=>##{"PID":"'${PID[$i]}'","%mem":"'${used[$i]}'","command":"'$pro_name'"}##||' | sed "s/##/$TMP/g"
+done

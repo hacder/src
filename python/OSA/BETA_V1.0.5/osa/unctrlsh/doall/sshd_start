@@ -1,0 +1,8 @@
+#!/bin/bash
+/etc/init.d/sshd start
+if [ "$?" == "0" ];then
+        echo "sshd启动成功"
+else
+        echo "sshd启动失败"
+fi
+

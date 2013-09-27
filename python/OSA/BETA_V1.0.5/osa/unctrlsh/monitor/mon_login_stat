@@ -1,0 +1,3 @@
+#!/bin/bash
+onlineuser=$(w|grep "pts"|wc -l)
+echo "\"login\":"$onlineuser

@@ -1,0 +1,7 @@
+#!/bin/bash
+/usr/local/mysql/bin/mysqld_safe &
+if [ "$?" == "0" ];then
+        echo "mysql启动成功"
+else
+        echo "mysql启动失败"
+fi

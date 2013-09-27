@@ -1,0 +1,16 @@
+#!/bin/bash
+
+PWD=$(dirname $(readlink /proc/$$/fd/255))
+TMP="'"
+ps -eo pid,%cpu,command  | grep -v PID | sort -nr -k 2 | head -n 10 > $PWD/etc/cpu_process
+
+PID=($(awk '{print $1}' $PWD/etc/cpu_process))
+used=($(awk '{print $2}' $PWD/etc/cpu_process))
+
+TOPINFO=$(top -b -n 1)
+
+for (( i=0;i<${#PID[@]};i++ ))
+do
+	pro_name=$( echo "$TOPINFO" | awk '$1=="'${PID[$i]}'"{print $NF}')
+	echo -e '##get_10_of_cpu_'$i'##=>##{"PID":"'${PID[$i]}'","%cpu":"'${used[$i]}'","command":"'$pro_name'"}##||' | sed "s/##/$TMP/g"
+done

@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "系统正在关机......"
+sleep 3
+init 0

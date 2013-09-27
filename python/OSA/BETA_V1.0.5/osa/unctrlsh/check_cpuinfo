@@ -1,0 +1,20 @@
+#!/bin/bash
+
+tmp="'"
+cat=$(which cat)
+cpu_type=$($cat /proc/cpuinfo | grep "model name" | awk -F[:@] '{print $2}' | sed 's/ \+$//g'| uniq)
+cpu_mhz=$($cat /proc/cpuinfo | grep "model name" | awk -F[:@] '{print $3}' | uniq)
+cpu_num=$($cat /proc/cpuinfo | grep "physical id" | sort | uniq -c | wc -l)
+cpu_cores=$($cat /proc/cpuinfo | grep "cpu cores" |grep -o "[0-9]"|wc -l)
+if [ -z $cpu_cores ]
+then
+cpu_cores=$($cat /proc/cpuinfo | grep "model name" | wc -l)
+fi
+
+case $1 in
+1)echo $cpu_type;;
+2)echo $cpu_mhz;;
+3)echo $cpu_num;;
+4)echo $cpu_cores;;
+*)echo  '##check_cpuinfo##=>##{"cpu_type":"'"$cpu_type"'","cpu_mhz":"'"$cpu_mhz"'","cpu_number":"'"$cpu_num"'","cpu_cores":"'"$cpu_cores"'"}##||' | sed "s/##/$tmp/g";;
+esac

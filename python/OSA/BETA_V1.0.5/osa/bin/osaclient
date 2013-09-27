@@ -1,0 +1,30 @@
+#!/bin/bash
+# encoding=utf-8
+# 程序启动shell脚本
+
+# 检查参数是否正确
+if [ $# -lt 1 ]
+then
+  echo "USAGE: $0 start|stop|restart"
+        exit 1
+fi
+
+# 程序路径
+
+SHELL_DIR=$(dirname $(readlink /proc/$$/fd/255))
+
+case $1 in
+        start|START)
+        /bin/bash $SHELL_DIR"/osaadmin" start client		
+        ;;
+        stop|STOP)
+        /bin/bash $SHELL_DIR"/osaadmin" stop client
+        ;;
+        restart|RESTART)
+        /bin/bash $SHELL_DIR"/osaadmin" restart client
+        ;;
+        *)
+        echo "USAGE: $0 start|stop|restart"
+        exit 1
+        ;;
+esac

@@ -1,0 +1,88 @@
+#!/bin/bash
+
+PASTE=$(which paste)
+PWD=$(dirname $(readlink /proc/$$/fd/255))
+TMP="'"
+>$PWD/etc/service_ok
+>$PWD/etc/service_error
+print_usage(){
+echo "Usage:check_service port_number/service_name"
+}
+
+#print information
+print_run(){
+    echo '"'${port}_$1'":"'OK'"' >> $PWD/etc/service_ok
+}
+
+print_down(){
+    echo '"'${port}_$1'":"'DOWN'"' >> $PWD/etc/service_error
+}
+
+#detect service_name for special port
+special_port(){
+for SER in `echo $@`
+do
+  ps aux|grep -i $SER|grep -v grep >/dev/null 2>&1 && print_run $SER && break
+done
+}
+
+#find service_name if they in etc/service
+find_service(){
+ egrep  -q "\b$1\b" $PWD/etc/service && awk '$1 == '"$1"' {print $2}' $PWD/etc/service  ||  netstat -nltp|grep ":$1 "|awk '/^tcp/ {len=split($NF,i,"/");print i[len]}'
+}       
+
+port_service(){
+SERVICE=`find_service $port`
+case $port in
+     80) special_port nginx apache lighttpd
+	 ;;
+   8080) special_port weblogic tomcat resin jboss
+	 ;;
+      *) print_run $SERVICE
+	 ;;
+esac
+}
+
+service_port(){
+netstat -nltp|grep "$1"|awk '{len=split($4,s,":");print s[len]}' 
+}
+
+#if you don't give any parameter,we print all open port and services
+if [ $#  -eq 0 ];then
+	#find all open port
+	PORTS=`netstat -nltp|awk '/^tcp/ {len=split($4,i,":");print i[len]}'|sort -n|uniq`
+
+	#main loop
+	for port in `echo $PORTS`
+	do
+	    port_service
+	done
+
+elif [ $# -eq 1 ];then
+case $1 in
+    -h|-H|--help) print_usage;;
+    *) if [[ $1 =~ ^[0-9]+$ ]];then
+	  port=$1
+	  netstat -nltp|grep ":$port " >/dev/null 2>&1 && port_service || print_down 
+       elif [[ $1 =~ ^[a-z]+$ ]];then
+	  port=`service_port $1`
+	  if [ -n "$port" ];then
+	     print_run $1
+	  else
+	     print_down $1
+	  fi
+      else
+ 	  print_usage
+      fi
+	;;
+esac
+else
+	print_usage
+fi
+
+$PASTE -d ',' -s $PWD/etc/service_ok | awk '{print "##check_service##=>##{"$0"}##||"}' | sed "s/##/$TMP/g"
+VAL=$(cat $PWD/etc/service_error)
+if [ "$VAL" != "" ]
+then
+$PASTE -d ',' -s $PWD/etc/service_error | awk '{print "##check_service##=>##{"$0"}##||"}' | sed "s/##/$TMP/g"
+fi

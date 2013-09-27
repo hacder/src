@@ -1,0 +1,4 @@
+#!/bin/bash
+PS=`which ps`
+num=`$PS -ef|wc -l`
+echo "\"process_num\":"$num

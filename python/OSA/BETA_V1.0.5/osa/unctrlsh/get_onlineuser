@@ -1,0 +1,5 @@
+#!/bin/bash
+
+tmp="'"
+onlineuser=$(who |wc -l)
+echo '##getonlineuser##=>##{"onlineuse":"'$onlineuser'"}##||' | sed "s/##/$tmp/g"

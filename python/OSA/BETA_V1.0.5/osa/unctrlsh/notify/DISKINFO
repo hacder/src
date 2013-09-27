@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ -z $1 ]
+then
+    echo "Usage:$0 (Use%)"
+    exit 1
+fi
+
+Use_per=($(df -h | grep -v -E '/mnt|/media/cdrom' | sed  '/\/dev\/[^h,s][^d]/N;s/\n//g'| awk 'NR>1{print $5}'|awk -F% '{print $1}'))
+
+s=0
+
+for ((i=0;i<${#Use_per[@]};i++))
+do
+     if (( ${Use_per[$i]} >= $s ))
+     then
+         s=${Use_per[$i]}
+     fi
+done
+echo $s
+

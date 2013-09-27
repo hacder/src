@@ -1,0 +1,8 @@
+#!/bin/bash
+/etc/init.d/sshd restart
+if [ "$?" == "0" ];then
+        echo "sshd重启成功"
+else
+        echo "sshd重启失败"
+fi
+

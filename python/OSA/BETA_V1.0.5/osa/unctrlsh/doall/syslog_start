@@ -1,0 +1,8 @@
+#!/bin/bash
+/etc/init.d/syslog start
+if [ "$?" == "0" ];then
+        echo "syslog启动成功"
+else
+        echo "syslog启动失败"
+fi
+

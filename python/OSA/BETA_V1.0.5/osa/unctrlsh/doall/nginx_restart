@@ -1,0 +1,12 @@
+#!/bin/bash
+pkill nginx
+sleep 2
+export LD_PRELOAD=/usr/local/lib/libtcmalloc.so
+ulimit -SHn 51200
+/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf
+if [ "$?" == "0" ];then
+        echo "nginx重启成功"
+else
+        echo "nginx重启失败"
+fi
+

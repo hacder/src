@@ -1,0 +1,24 @@
+#!/bin/bash
+
+path=`readlink /proc/$$/fd/255`
+shelldir=`dirname $path`
+
+if [ -z $1 ]
+then
+	echo "参数不正确."
+else
+	if [ -f $shelldir/$1 ]
+	then
+		echo `/bin/bash "$shelldir/$1"`
+	else
+		w=`eval $1 --help >/dev/null` 
+        	if [ $? != 0 ]
+        	then
+                	echo "$1 not found."
+        	else
+                	echo "$1 is a system command."
+        	fi
+
+	fi
+
+fi

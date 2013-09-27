@@ -1,0 +1,17 @@
+#!/bin/bash
+
+disk_totel=$(fdisk -l | grep "Disk \/" | awk -F[\ :,] '{print $2,$4$5}')
+tmp="'"
+
+#disk_size=$(df -h | grep -v -E '/mnt|/media/cdrom' | sed  '/\/dev\/[^h,s][^d]/N;s/\n//g' | paste -d ',' -s| sed 's/\ \+/|/g')
+Filesystem=($(df -h | grep -v -E '/mnt|/media/cdrom' | sed  '/\/dev\/[^h,s][^d]/N;s/\n//g'| awk 'NR>1{print $1}'))
+Size=($(df -h | grep -v -E '/mnt|/media/cdrom' | sed  '/\/dev\/[^h,s][^d]/N;s/\n//g'| awk 'NR>1{print $2}'))
+Used=($(df -h | grep -v -E '/mnt|/media/cdrom' | sed  '/\/dev\/[^h,s][^d]/N;s/\n//g'| awk 'NR>1{print $3}'))
+Avail=($(df -h | grep -v -E '/mnt|/media/cdrom' | sed  '/\/dev\/[^h,s][^d]/N;s/\n//g'| awk 'NR>1{print $4}'))
+Use_per=($(df -h | grep -v -E '/mnt|/media/cdrom' | sed  '/\/dev\/[^h,s][^d]/N;s/\n//g'| awk 'NR>1{print $5}'))
+Mounted=($(df -h | grep -v -E '/mnt|/media/cdrom' | sed  '/\/dev\/[^h,s][^d]/N;s/\n//g'| awk 'NR>1{print $6}'))
+
+for ((i=0;i<${#Filesystem[@]};i++))
+do
+        echo '##check_disk_'$i'##=>##{"Filesystem":"'${Filesystem[$i]}'","Size":"'${Size[$i]}'","Used":"'${Used[$i]}'","Avail":"'${Avail[$i]}'","Use%":"'${Use_per[$i]}'","Mounted":"'${Mounted[$i]}'"}##||' | sed "s/##/$tmp/g"
+done

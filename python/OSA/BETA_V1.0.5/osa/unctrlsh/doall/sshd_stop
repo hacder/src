@@ -1,0 +1,7 @@
+#!/bin/bash
+echo "/etc/init.d/sshd stop"
+if [ "$?" == "0" ];then
+        echo "sshd关闭成功"
+else
+        echo "sshd关闭失败"
+fi

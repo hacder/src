@@ -1,0 +1,8 @@
+#!/bin/bash
+service iptables start
+if [ "$?" == "0" ];then
+        echo "iptables启动成功"
+else
+        echo "iptables启动失败"
+fi
+

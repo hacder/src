@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "系统正在重启..."
+sleep 3
+init 6

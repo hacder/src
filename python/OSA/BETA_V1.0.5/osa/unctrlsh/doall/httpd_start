@@ -1,0 +1,7 @@
+#!/bin/bash
+/usr/local/apache/bin/httpd -k start
+if [ "$?" == "0" ];then
+        echo "httpd启动成功"
+else
+        echo "httpd启动失败"
+fi

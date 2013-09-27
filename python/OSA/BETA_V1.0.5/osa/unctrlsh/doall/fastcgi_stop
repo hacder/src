@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "pkill php-cgi"
+if [ "$?" == "0" ];then
+        echo "fastcgi关闭成功"
+else
+        echo "fastcgi关闭失败"
+	exit 1
+fi
+
+        

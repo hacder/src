@@ -1,0 +1,10 @@
+ 3375 50.9 /usr/local/mysql/libexec/mysqld --basedir=/usr/local/mysql --datadir=/usr/local/mysql/var --user=mysql --pid-file=/usr/local/mysql/var/test.openwebsa.org.pid --skip-external-locking --port=3306 --socket=/tmp/mysql.sock
+ 2490  0.8 iscsiuio
+ 3686  0.6 nginx: worker process                                          
+ 3685  0.6 nginx: worker process                                          
+ 3684  0.6 nginx: worker process                                          
+ 3683  0.6 nginx: worker process                                          
+ 4030  0.3 /usr/libexec/gdmgreeter
+ 4017  0.2 /usr/bin/python -tt /usr/sbin/yum-updatesd
+ 3939  0.2 /usr/local/php/bin/php-cgi
+ 3935  0.2 /usr/local/php/bin/php-cgi

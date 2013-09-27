@@ -1,0 +1,7 @@
+#!/bin/bash
+service iptables stop
+if [ "$?" == "0" ];then
+        echo "iptables关闭成功"
+else
+        echo "iptables关闭失败"
+fi

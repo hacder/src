@@ -1,0 +1,10 @@
+ 3375  0.3 /usr/local/mysql/libexec/mysqld --basedir=/usr/local/mysql --datadir=/usr/local/mysql/var --user=mysql --pid-file=/usr/local/mysql/var/test.openwebsa.org.pid --skip-external-locking --port=3306 --socket=/tmp/mysql.sock
+    9  0.0 [ksoftirqd/3]
+    8  0.0 [migration/3]
+  718  0.0 /sbin/udevd -d
+    7  0.0 [ksoftirqd/2]
+  685  0.0 [kauditd]
+   66  0.0 [kacpid]
+  659  0.0 [kjournald]
+   65  0.0 [kblockd/3]
+   64  0.0 [kblockd/2]

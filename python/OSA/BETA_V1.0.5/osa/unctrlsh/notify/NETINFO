@@ -1,0 +1,32 @@
+#!/bin/bash
+
+if [ -z $1 ]
+then
+    echo "Usage:$0 ethx_in|out"
+    echo "EXP:$0 eth0_in"
+    exit 1
+fi
+
+dev=`echo $1|awk -F_ '{print $1}'`
+t=`echo $1|awk -F_ '{print $2}'`
+
+eth=($(grep -v -E '(lo|sit)' /proc/net/dev | awk -F: 'NR>2{print $1}'))
+tmp="'"
+v=""
+for ((i=0;i<${#eth[@]};i++))
+do
+        RXpre=`expr $(ifconfig ${eth[$i]} | grep bytes | awk  '{print $2}'| awk -F":" '{print $2}') / 1024`
+        TXpre=`expr $(ifconfig ${eth[$i]} | grep bytes | awk '{print $6}' | awk -F":" '{print $2}') / 1024`
+
+        if [ "x${eth[$i]}" == "x$dev" ]
+        then
+            if [ "x$t" == "xin" ]
+            then
+               v=$RXpre
+            else
+               v=$TXpre
+            fi
+            break
+        fi
+done
+echo $v

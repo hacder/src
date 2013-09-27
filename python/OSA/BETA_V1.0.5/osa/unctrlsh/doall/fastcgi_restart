@@ -1,0 +1,12 @@
+#!/bin/bash
+pkill -9 php-cgi
+sleep 2
+pkill -9 php-cgi
+sleep 2
+ulimit -SHn 51200
+/usr/local/php/bin/spawn-fcgi -a 127.0.0.1 -p 10080 -C 256 -u www -f /usr/local/php/bin/php-cgi
+if [ "$?" == "0" ];then
+ 	echo "fastcgi重启成功"
+else    
+	echo "fastcgi重启失败"
+fi                    

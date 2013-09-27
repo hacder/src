@@ -1,0 +1,11 @@
+#!/bin/bash
+
+tmp="'"
+cat=$(which cat)
+uname=$(which uname)
+grep=$(which grep)
+
+os=`$cat /etc/redhat-release`
+system=`$uname -i`
+runlevel=`$grep id /etc/inittab`
+echo "OS":"$os",SYSTEM:"$system",RUNLEVEL:"$runlevel" | sed "s/##/$tmp/g"

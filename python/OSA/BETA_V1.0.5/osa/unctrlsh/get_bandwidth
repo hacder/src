@@ -1,0 +1,14 @@
+#!/bin/bash
+
+eth=($(grep -v -E '(lo|sit)' /proc/net/dev | awk -F: 'NR>2{print $1}'))
+tmp="'"
+
+for ((i=0;i<${#eth[@]};i++))
+do
+	RXpre=$(ifconfig ${eth[$i]} | grep bytes | awk  '{print $2}'| awk -F":" '{print $2}')
+	TXpre=$(ifconfig ${eth[$i]} | grep bytes | awk '{print $6}' | awk -F":" '{print $2}')
+
+	if [ "$RXpre" -ne 0 ];then
+	echo '##get_bandwidth_'$i'##=>##{"device":"'${eth[$i]}'","in":"'$RXpre'","out":"'$TXpre'"}##||' | sed "s/##/$tmp/g"
+	fi
+done

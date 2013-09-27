@@ -1,0 +1,11 @@
+#!/bin/bash
+
+tmp="'"
+mem_total=$(free -m | grep Mem | awk '{print $2}')
+mem_free=$(free -m | grep Mem | awk '{print $4}')
+mem_buff=$(free -m | grep "\-\/+" | awk '{print $3}')
+mem_cache=$(free -m | grep "\-\/+" | awk '{print $4}')
+mem_swap_total=$(free -m | grep Swap | awk '{print $2}')
+mem_swap_free=$(free -m | grep Swap | awk '{print $4}')
+
+echo '##check_meminfo##=>##{"mem_total":"'${mem_total}MB'","mem_free":"'${mem_free}MB'","mem_buffer":"'${mem_buff}MB'","mem_cache":"'${mem_cache}MB'","mem_swap_total":"'${mem_swap_total}MB'","mem_swap_free":"'${mem_swap_free}MB'"}##||' | sed "s/##/$tmp/g"

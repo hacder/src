@@ -1,0 +1,28 @@
+#!/bin/bash
+
+eth=($(grep -v -E '(lo|sit)' /proc/net/dev | awk -F: 'NR>2{print $1}'))
+tmp="'"
+
+for ((i=0;i<${#eth[@]};i++))
+do
+        RXpre1=`expr $(ifconfig ${eth[$i]} | grep bytes | awk  '{print $2}'| awk -F":" '{print $2}')`
+        TXpre1=`expr $(ifconfig ${eth[$i]} | grep bytes | awk '{print $6}' | awk -F":" '{print $2}')`
+	sleep 1
+	RXpre2=`expr $(ifconfig ${eth[$i]} | grep bytes | awk  '{print $2}'| awk -F":" '{print $2}')`
+        TXpre2=`expr $(ifconfig ${eth[$i]} | grep bytes | awk '{print $6}' | awk -F":" '{print $2}')`
+	
+	Tx=`expr $TXpre2 - $TXpre1` 
+	Rx=`expr $RXpre2 - $RXpre1`
+       
+	
+	if [[ "$RXpre2" -ne 0 ]];then
+        
+		str=$str\"${eth[$i]}\"":{\"outbond\":"$Tx",\"inbond\":"$Rx"},"
+        
+	fi
+done
+
+str="\"network\":{"${str:0:((`expr length $str` - 1 ))}"}"
+echo $str
+
+

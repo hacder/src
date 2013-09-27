@@ -1,0 +1,7 @@
+#!/bin/bash
+/usr/local/mysql/bin/mysqladmin -u root -p`cat /data/save/mysql_root` shutdown
+if [ "$?" == "0" ];then
+        echo "mysql关闭成功"
+else
+        echo "mysql关闭失败"
+fi

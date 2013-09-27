@@ -1,0 +1,6 @@
+"login":7
+"memory":{"used":887,"total":2010}
+"loadstat":{"fifteen":0.01,"five":0.08,"one":0.11}
+"diskstat":{"/":{"used":7168,"total":49152},"/data":{"used":851,"total":195584},"/boot":{"used":19,"total":99},"/dev/shm":{"used":0,"total":1006},"all":{"used":8038,"total":245841}}
+"constat":{"udp":7,"tcp":15,"allnum":22}
+"process_num":395

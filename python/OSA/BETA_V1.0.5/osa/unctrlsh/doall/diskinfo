@@ -1,0 +1,5 @@
+#!/bin/bash
+Fdisk=$(which fdisk)
+Awk=$(which awk)
+Grep=$(which grep)
+$Fdisk -l |$Grep "Disk" |$Awk -F[,] '{print $1}'

@@ -1,0 +1,8 @@
+#!/bin/bash
+echo "pkill nginx"
+if [ "$?" == "0" ];then
+        echo "nginx关闭成功"
+else
+        echo "nginx关闭失败"
+fi
+

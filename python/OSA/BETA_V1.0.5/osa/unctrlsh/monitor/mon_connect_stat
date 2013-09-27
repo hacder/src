@@ -1,0 +1,7 @@
+#!/bin/bash
+NETSTAT=`which netstat`
+tcpnum=`$NETSTAT -at|wc -l`
+udpnum=`$NETSTAT -au|wc -l`
+allnum=`expr $tcpnum + $udpnum`
+
+echo "\"constat\":{\"udp\":"$udpnum",\"tcp\":"$tcpnum",\"allnum\":"$allnum"}"

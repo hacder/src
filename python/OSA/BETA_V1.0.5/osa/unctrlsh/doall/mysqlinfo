@@ -1,0 +1,11 @@
+#!/bin/bash
+MYSQL=$(which mysql)
+GREP=$(which grep)
+MYSQLINFO=$($MYSQL -V |awk -F[,] '{print $1}')
+
+VERSION=$()
+if [ -z "$MYSQLINFO" ];then
+	echo '系统错误，找不到mysql.'
+else
+	echo "$MYSQLINFO."
+fi

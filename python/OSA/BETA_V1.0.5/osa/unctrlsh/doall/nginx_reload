@@ -1,0 +1,9 @@
+#!/bin/bash
+/usr/local/nginx/sbin/nginx -t
+kill -HUP `cat /usr/local/nginx/logs/nginx.pid`
+if [ "$?" == "0" ];then
+        echo "nginx重启加载成功"
+else
+        echo "nginx重启加载失败"
+fi
+

@@ -1,0 +1,24 @@
+#!/bin/bash
+
+PASTE=$(which paste)
+PWD=$(dirname $(readlink /proc/$$/fd/255))
+
+if [ -z $1 ]
+then
+    echo "Usage:$0 port_number/service_name"
+    echo "EXP:$0 80"
+    exit 1
+fi
+
+PORT=`echo $1|awk -F_ '{print $1}'`
+SNAME=`echo $1|awk -F_ '{print $2}'`
+
+SP=$(netstat -ntpl|awk '{len=split($4,s,":");print s[len]}'|grep "^"$PORT"$") 
+SN=$(netstat -nltp|awk '/^tcp/ {len=split($NF,i,"/");print i[len]}'|grep "^"$SNAME"$")
+
+if [[ "x$PORT" == "x$SP" ]] || [[ "x$SNAME" == "x$SN" ]]
+then
+echo "OK"
+else
+echo "ERROR"
+fi

@@ -1,0 +1,37 @@
+#!/bin/bash
+
+## CPU
+##        Processor number. The keyword all indicates that statistics are calculated as averages among all processors.
+## %user
+##        Show the percentage of CPU utilization that occurred while executing at the user level (application).
+## %nice
+##        Show the percentage of CPU utilization that occurred while executing at the user level with nice priority.
+## %sys
+##        Show  the  percentage  of  CPU  utilization that occurred while executing at the system level (kernel). Note that this does not
+##        include time spent servicing interrupts or softirqs.
+## %iowait
+##        Show the percentage of time that the CPU or CPUs were idle during which the system had an outstanding disk I/O request.
+## %irq
+##        Show the percentage of time spent by the CPU or CPUs to service interrupts.
+## %soft
+##        Show the percentage of time spent by the CPU or CPUs to service softirqs.  A softirq (software interrupt) is one of  up  to  32
+##        enumerated software interrupts which can run on multiple CPUs at once.
+## %steal
+##        Show  the  percentage  of  time spent in involuntary wait by the virtual CPU or CPUs while the hypervisor was servicing another
+##        virtual processor.
+## %idle
+##        Show the percentage of time that the CPU or CPUs were idle and the system did not have an outstanding disk I/O request.
+## intr/s
+##        Show the total number of interrupts received per second by the CPU or CPUs.
+##
+## Note: On SMP machines a processor that does not have any activity at all is a disabled (offline) processor.
+
+tmp="'"
+system_stat=$(mpstat | awk 'NR>3{print $0}')
+user_stat=$(echo $system_stat | awk '{print $4}')
+nice_stat=$(echo $system_stat | awk '{print $5}')
+sys_stat=$(echo $system_stat | awk '{print $6}')
+iowait_stat=$(echo $system_stat | awk '{print $7}')
+idle_stat=$(echo $system_stat | awk '{print $11}')
+
+echo "\"check_mpstat\":{\"user\":\"$user_stat%\",\"nice\":\"$nice_stat%\",\"sys\":\"$sys_stat%\",\"iowait\":\"$iowait_stat%\",\"idle\":\"$idle_stat%\"}"

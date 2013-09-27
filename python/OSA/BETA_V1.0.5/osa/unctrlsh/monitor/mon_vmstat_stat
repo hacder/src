@@ -1,0 +1,31 @@
+#!/bin/bash
+
+#   Procs
+#       r: The number of processes waiting for run time.
+#       b: The number of processes in uninterruptible sleep.
+#
+#   Swap
+#       si: Amount of memory swapped in from disk (/s).
+#       so: Amount of memory swapped to disk (/s).
+#
+#   IO
+#       bi: Blocks received from a block device (blocks/s).
+#       bo: Blocks sent to a block device (blocks/s).
+#
+#   System
+#       in: The number of interrupts per second, including the clock.
+#       cs: The number of context switches per second.
+
+
+tmp="'"
+system_stat=$(vmstat | awk 'NR>2{print $0}')
+r_stat=$(echo $system_stat | awk '{print $1}')
+b_stat=$(echo $system_stat | awk '{print $2}')
+si_stat=$(echo $system_stat | awk '{print $7}')
+so_stat=$(echo $system_stat | awk '{print $8}')
+bi_stat=$(echo $system_stat | awk '{print $9}')
+bo_stat=$(echo $system_stat | awk '{print $10}')
+in_stat=$(echo $system_stat | awk '{print $11}')
+cs_stat=$(echo $system_stat | awk '{print $12}')
+
+echo "\"check_vmstat\":{\"r\":\"$r_stat\",\"b\":\"$b_stat\",\"si\":\"$si_stat\",\"so\":\"$so_stat\",\"bi\":\"$bi_stat\",\"bo\":\"$bo_stat\",\"in\":\"$in_stat\",\"cs\":\"$cs_stat\"}"

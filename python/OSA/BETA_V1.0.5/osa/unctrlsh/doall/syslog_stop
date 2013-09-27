@@ -1,0 +1,7 @@
+#!/bin/bash
+/etc/init.d/syslog stop
+if [ "$?" == "0" ];then
+        echo "syslog关闭成功"
+else
+        echo "syslog关闭失败"
+fi

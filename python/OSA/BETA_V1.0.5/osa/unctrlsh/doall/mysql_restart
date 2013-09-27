@@ -1,0 +1,13 @@
+#!/bin/bash
+/usr/local/mysql/bin/mysqladmin -u root -p`cat /data/save/mysql_root` shutdown
+#/bin/ps -ef|grep mysql|grep -v grep|awk '{print $2}'|xargs kill -9
+sleep 10
+echo 123
+/usr/local/mysql/bin/mysqld_safe &
+
+if [ "$?" == "0" ];then
+        echo "mysql重启成功"
+else
+        echo "mysql重启失败"
+fi
+

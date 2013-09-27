@@ -1,0 +1,73 @@
+#!/bin/bash
+
+BC=`which bc`
+
+if [[ ! $BC ]]
+then
+	yum -y install bc > /dev/null
+fi
+
+disk_totel=$(fdisk -l | grep "Disk \/" | awk -F[\ :,] '{print $2,$4$5}')
+tmp="'"
+
+Size=($(df -h | grep -v -E '/mnt|/media/cdrom' | sed  '/\/dev\/[^h,s][^d]/N;s/\n//g'| awk 'NR>1{print $2}'))
+Used=($(df -h | grep -v -E '/mnt|/media/cdrom' | sed  '/\/dev\/[^h,s][^d]/N;s/\n//g'| awk 'NR>1{print $3}'))
+Mounted=($(df -h | grep -v -E '/mnt|/media/cdrom' | sed  '/\/dev\/[^h,s][^d]/N;s/\n//g'| awk 'NR>1{print $6}'))
+
+
+for ((i=0;i<${#Size[@]};i++))
+do
+	s_l=$(expr length ${Size[$i]})
+        u_l=$(expr length ${Used[$i]})
+	size=${Size[$i]}
+	used=${Used[$i]}
+	l_s=${size:$(($s_l-1)):$s_l}
+	l_u=${used:$(($u_l-1)):$u_l}
+
+	if [[ $l_s == 'G' ]]
+	then
+		lSize=${size:0:$(($s_l-1))}
+		lSize=$(expr ${lSize%.*} \* 1024 )
+	elif [[ $l_s == 'T' ]]
+	then
+		lSize=${size:0:$(($s_l-1))}
+                lSize=$(expr ${lSize%.*} \* 1024 \* 1024 )
+	else
+		lSize=${size:0:$(($s_l-1))}
+	fi
+
+	if [[ $l_u == 'G' ]]
+	then
+        	lUsed=${used:0:$(($u_l-1))}
+        	lUsed=`expr ${lUsed%.*} \* 1024`
+	elif [[ $l_u == 'T' ]]
+	then
+		lUsed=${used:0:$(($u_l-1))}
+                lUsed=`expr ${lUsed%.*} \* 1024 \* 1024`
+	else
+		lUsed=${used:0:$(($u_l-1))}
+	fi
+
+
+	if [[ $lSize == "" ]]
+	then
+		lSize=0
+	fi 
+
+	if [[ $lUsed == "" ]]
+	then
+		lUsed=0
+	fi
+
+	str=$str\""${Mounted[$i]}"\":"{\"used\":"$lUsed",\"total\":"$lSize"},"
+	js(){
+	str=$@
+	echo ${str// /+}|bc -l
+	}
+	tSize=`js $tSize $lSize`
+	tUsed=`js $tUsed $lUsed`
+done
+
+lstr="\"diskstat\":{"$str"\"all\":{\"used\":"$tUsed",\"total\":"$tSize"}}"
+
+echo $lstr

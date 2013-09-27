@@ -1,0 +1,4 @@
+#!/bin/bash
+
+GREP=$(which grep)
+w |${GREP} "load average"

@@ -1,0 +1,8 @@
+"21_ftp-control":"OK"
+"22_ssh":"OK"
+"80_nginx":"OK"
+"88_nginx.conf":"OK"
+"873_rsync":"OK"
+"3306_mysql":"OK"
+"10080_php-cgi":"OK"
+"10624_python":"OK"
