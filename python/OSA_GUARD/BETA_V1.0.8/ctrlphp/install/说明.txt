@@ -1,0 +1,2 @@
+1,将key.php,updatekey.sh都放到/usr/local/osa/ctrlphp/install/目录下面
+2,在安装完成后，重启第一次的时候执行一次updatekey.sh，只需要执行一次，但是执行的时候需要有网络。
