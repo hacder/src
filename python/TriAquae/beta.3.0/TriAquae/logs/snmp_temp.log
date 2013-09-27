@@ -1,0 +1,2 @@
+127.0.0.1 | Timeout | "Could not connect to SNMP,please check the network or snmp configuration!"
+10.0.0.66 | Timeout | "Could not connect to SNMP,please check the network or snmp configuration!"

@@ -1,0 +1,44 @@
+#!/usr/bin/expect
+
+set Key_Dir [lindex $argv 0]
+set key_pass [lindex $argv 1]
+puts "$Key_Dir"
+puts "$key_pass"
+#set Key_Dir "/usr/local/shellinabox/key"
+#set key_pass "coral"
+
+cd $Key_Dir
+#create key
+spawn /usr/bin/openssl genrsa -des3 -out my.key 1024
+expect {
+    "my.key:" {exp_send "$key_pass\r";exp_continue}
+    "Verifying" {exp_send "$key_pass\r";exp_continue}
+}
+
+#create csr
+spawn /usr/bin/openssl req -new -key my.key -out my.csr
+expect {
+    "my.key:" {exp_send "$key_pass\r";exp_continue}
+    "Country Name" {exp_send "\r";exp_continue}
+    "State or Province Name" {exp_send "\r";exp_continue}
+    "Locality Name" {exp_send "\r";exp_continue}
+    "Organization Name" {exp_send "\r";exp_continue}
+    "Organizational Unit Name" {exp_send "\r";exp_continue}
+    "Common Name" {exp_send "\r";exp_continue}
+    "Email Address" {exp_send "\r";exp_continue}
+    "A challenge password" {exp_send "\r";exp_continue}
+    "An optional company name" {exp_send "\r";exp_continue}
+}
+
+spawn cp my.key my.key.org
+spawn /usr/bin/openssl rsa -in my.key.org -out my.key
+expect {
+    "my.key.org:" {exp_send "$key_pass\r";exp_continue}
+}
+
+spawn /usr/bin/openssl x509 -req -days 3650 -in my.csr -signkey my.key -out my.crt
+expect {
+    "my.key:" {exp_send "$key_pass\r";exp_continue}
+}
+
+exit

@@ -1,0 +1,1 @@
+python /usr/local/TriAquae/TriAquae/backend/baoleihost.py 10.0.0.102 22 tri SSH_PASSWD 1 admin
