@@ -39,7 +39,7 @@ def redis_get_baseinfo(info,lastdata,minute):
 	try:
 		baseinfo = {}
 		baseinfo['used_mem'] = info['used_memory']
-		baseinfo['connected_slave'] = info['connected_slaves']
+		baseinfo['connected_subordinate'] = info['connected_subordinates']
 		baseinfo['pubsub_channels'] = info['pubsub_channels']
 		baseinfo['pubsub_patters'] = info['pubsub_patterns']
 		baseinfo['blocked_clients'] = info['blocked_clients']

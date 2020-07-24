@@ -158,19 +158,19 @@ def mysql_get_hitcache(status_list):
 	except Exception as e:
 		log_error("mysql_get_hitcache():"+str(e))
 
-def mysql_get_slave_status(slavelist):
+def mysql_get_subordinate_status(subordinatelist):
 	'''
 	@mysql 获取主从状态,判断是否报警
 	'''
 	try:
-		if not slavelist:
+		if not subordinatelist:
 			return True
-		elif slavelist[0][10] == 'No' or slavelist[0][11] == 'No':
+		elif subordinatelist[0][10] == 'No' or subordinatelist[0][11] == 'No':
 			return True
 		return False			
 	except Exception as e:
 		
-		log_error("mysql_get_slave_status():"+str(e))
+		log_error("mysql_get_subordinate_status():"+str(e))
 		return True
 
 def mysql_alarm_tconnected(itemconfig,status_list):
@@ -293,7 +293,7 @@ def mysql_alarm_others(key ,itemconfig,status):
 
 
 	
-def mysql_alarm_analyze(itemconfig,status_list ,last_aclients ,last_aconnects ,query_cache_rate ,status,slavelist):
+def mysql_alarm_analyze(itemconfig,status_list ,last_aclients ,last_aconnects ,query_cache_rate ,status,subordinatelist):
 	'''
 	@mysql 对报警指标进行分析
 	'''		
@@ -314,8 +314,8 @@ def mysql_alarm_analyze(itemconfig,status_list ,last_aclients ,last_aconnects ,q
 	elif 'query_cache_rate' in itemconfig.keys() and mysql_alarm_querycache(itemconfig,query_cache_rate) == True:
 		reason = "Mysql查询缓存利用率"+itemconfig['query_cache_rate']['condition']+" "+itemconfig['query_cache_rate']['value']
 		return True ,reason
-	elif 'slave_status' in itemconfig.keys() and mysql_get_slave_status(slavelist) == True:
-		reason = "Mysql slave状态异常,可能原因是主从没有开启或者slave线程己停止"
+	elif 'subordinate_status' in itemconfig.keys() and mysql_get_subordinate_status(subordinatelist) == True:
+		reason = "Mysql subordinate状态异常,可能原因是主从没有开启或者subordinate线程己停止"
 		return True ,reason
 	#else :
 	#	if mysql_alarm_others(key ,itemconfig,status) == True:
@@ -397,8 +397,8 @@ def mysql_status_analyze(object,itemconfig,itemid,sec):
 	cursor.execute('show global variables')
 	variables = cursor.fetchall()
 	
-	cursor.execute('show slave status')
-	slavelist=cursor.fetchall()
+	cursor.execute('show subordinate status')
+	subordinatelist=cursor.fetchall()
 	
 	responsetime = (end-start).microseconds/1000
 	status_list = mysql_get_status(status)
@@ -412,7 +412,7 @@ def mysql_status_analyze(object,itemconfig,itemid,sec):
 	else:
 		last_aclients = lastdata['Aborted_clients']
 		last_aconnects = lastdata['Aborted_connects']
-	isAlarm ,reason = mysql_alarm_analyze(itemconfig,status_list ,last_aclients ,last_aconnects ,mysql_json['query_cache_rate'] ,status,slavelist)
+	isAlarm ,reason = mysql_alarm_analyze(itemconfig,status_list ,last_aclients ,last_aconnects ,mysql_json['query_cache_rate'] ,status,subordinatelist)
 	if isAlarm == True :
 		return str(0) ,reason ,simplejson.dumps(mysql_json),str(3)
 	else:
